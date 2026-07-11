@@ -1,0 +1,303 @@
+{% extends "base.html" %}
+{% block title %}Home - Career Path Recommender{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-white text-center">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold mb-3">Discover Your Ideal Career Path</h1>
+        <p class="lead mb-4 mx-auto" style="max-width: 700px;">
+            Enter your academic scores, interests, and preferences. Our AI model
+            will analyze your profile and recommend the best career path for you.
+        </p>
+        <a href="#input-form" class="btn btn-light btn-lg px-5 fw-semibold">
+            Get Started
+        </a>
+    </div>
+</section>
+
+<!-- Input Form Section -->
+<section id="input-form" class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-primary text-white text-center py-3">
+                        <h3 class="mb-0 fw-bold">Student Profile Form</h3>
+                        <small>Fill in your details to get a career recommendation</small>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="/predict" method="POST" id="careerForm" novalidate>
+
+                            <!-- Personal Information -->
+                            <h5 class="text-primary fw-semibold mb-3 mt-2">
+                                Personal Information
+                            </h5>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-4">
+                                    <label for="name" class="form-label fw-semibold">Student Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           placeholder="e.g. John Doe" required>
+                                    <div class="invalid-feedback">Please enter your name.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="age" class="form-label fw-semibold">Age</label>
+                                    <input type="number" class="form-control" id="age" name="age"
+                                           min="15" max="30" value="20" required>
+                                    <div class="invalid-feedback">Enter a valid age (15-30).</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="department" class="form-label fw-semibold">Department</label>
+                                    <select class="form-select" id="department" name="department" required>
+                                        <option value="Computer Science" selected>Computer Science</option>
+                                        <option value="Information Technology">Information Technology</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Electrical Engineering">Electrical Engineering</option>
+                                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                        <option value="Data Science">Data Science</option>
+                                        <option value="Software Engineering">Software Engineering</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Academic Scores -->
+                            <h5 class="text-primary fw-semibold mb-3">Academic Scores</h5>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-3">
+                                    <label for="math_score" class="form-label fw-semibold">Math Score</label>
+                                    <input type="range" class="form-range" id="math_score" name="math_score"
+                                           min="0" max="100" value="60" oninput="updateScore(this)">
+                                    <div class="text-center fw-bold score-display" id="math_score_val">60</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="programming_score" class="form-label fw-semibold">Programming Score</label>
+                                    <input type="range" class="form-range" id="programming_score" name="programming_score"
+                                           min="0" max="100" value="65" oninput="updateScore(this)">
+                                    <div class="text-center fw-bold score-display" id="programming_score_val">65</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="communication_score" class="form-label fw-semibold">Communication Score</label>
+                                    <input type="range" class="form-range" id="communication_score" name="communication_score"
+                                           min="0" max="100" value="55" oninput="updateScore(this)">
+                                    <div class="text-center fw-bold score-display" id="communication_score_val">55</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="problem_solving_score" class="form-label fw-semibold">Problem Solving Score</label>
+                                    <input type="range" class="form-range" id="problem_solving_score" name="problem_solving_score"
+                                           min="0" max="100" value="60" oninput="updateScore(this)">
+                                    <div class="text-center fw-bold score-display" id="problem_solving_score_val">60</div>
+                                </div>
+                            </div>
+
+                            <!-- Interest Levels -->
+                            <h5 class="text-primary fw-semibold mb-3">Interest Levels (1-10)</h5>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-3">
+                                    <label for="web_interest" class="form-label fw-semibold">Web Development</label>
+                                    <input type="range" class="form-range" id="web_interest" name="web_interest"
+                                           min="1" max="10" value="5" oninput="updateInterest(this)">
+                                    <div class="text-center fw-bold interest-display" id="web_interest_val">5</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="mobile_interest" class="form-label fw-semibold">Mobile Apps</label>
+                                    <input type="range" class="form-range" id="mobile_interest" name="mobile_interest"
+                                           min="1" max="10" value="5" oninput="updateInterest(this)">
+                                    <div class="text-center fw-bold interest-display" id="mobile_interest_val">5</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="ai_interest" class="form-label fw-semibold">AI / ML</label>
+                                    <input type="range" class="form-range" id="ai_interest" name="ai_interest"
+                                           min="1" max="10" value="5" oninput="updateInterest(this)">
+                                    <div class="text-center fw-bold interest-display" id="ai_interest_val">5</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="database_interest" class="form-label fw-semibold">Databases</label>
+                                    <input type="range" class="form-range" id="database_interest" name="database_interest"
+                                           min="1" max="10" value="5" oninput="updateInterest(this)">
+                                    <div class="text-center fw-bold interest-display" id="database_interest_val">5</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="networking_interest" class="form-label fw-semibold">Networking / Cybersecurity</label>
+                                    <input type="range" class="form-range" id="networking_interest" name="networking_interest"
+                                           min="1" max="10" value="5" oninput="updateInterest(this)">
+                                    <div class="text-center fw-bold interest-display" id="networking_interest_val">5</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="cloud_interest" class="form-label fw-semibold">Cloud / DevOps</label>
+                                    <input type="range" class="form-range" id="cloud_interest" name="cloud_interest"
+                                           min="1" max="10" value="5" oninput="updateInterest(this)">
+                                    <div class="text-center fw-bold interest-display" id="cloud_interest_val">5</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="design_interest" class="form-label fw-semibold">Design / UI</label>
+                                    <input type="range" class="form-range" id="design_interest" name="design_interest"
+                                           min="1" max="10" value="5" oninput="updateInterest(this)">
+                                    <div class="text-center fw-bold interest-display" id="design_interest_val">5</div>
+                                </div>
+                            </div>
+
+                            <!-- Preferences -->
+                            <h5 class="text-primary fw-semibold mb-3">Preferences</h5>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <label for="preferred_subject" class="form-label fw-semibold">Preferred Subject</label>
+                                    <select class="form-select" id="preferred_subject" name="preferred_subject" required>
+                                        <option value="Web Development">Web Development</option>
+                                        <option value="Design">Design</option>
+                                        <option value="Human-Computer Interaction">Human-Computer Interaction</option>
+                                        <option value="Data Structures">Data Structures</option>
+                                        <option value="Algorithms">Algorithms</option>
+                                        <option value="Database Systems">Database Systems</option>
+                                        <option value="Software Engineering">Software Engineering</option>
+                                        <option value="Mobile Development">Mobile Development</option>
+                                        <option value="UI Design">UI Design</option>
+                                        <option value="Statistics">Statistics</option>
+                                        <option value="Data Science">Data Science</option>
+                                        <option value="Business Analytics">Business Analytics</option>
+                                        <option value="Artificial Intelligence">Artificial Intelligence</option>
+                                        <option value="Machine Learning">Machine Learning</option>
+                                        <option value="Deep Learning">Deep Learning</option>
+                                        <option value="Network Security">Network Security</option>
+                                        <option value="Ethical Hacking">Ethical Hacking</option>
+                                        <option value="Cryptography">Cryptography</option>
+                                        <option value="Cloud Computing">Cloud Computing</option>
+                                        <option value="DevOps">DevOps</option>
+                                        <option value="System Administration">System Administration</option>
+                                        <option value="Psychology">Psychology</option>
+                                        <option value="SQL">SQL</option>
+                                        <option value="Data Management">Data Management</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="career_goal" class="form-label fw-semibold">Career Goal</label>
+                                    <select class="form-select" id="career_goal" name="career_goal" required>
+                                        <option value="Build beautiful websites">Build beautiful websites</option>
+                                        <option value="Build scalable systems">Build scalable systems</option>
+                                        <option value="Build complete applications">Build complete applications</option>
+                                        <option value="Build mobile apps">Build mobile apps</option>
+                                        <option value="Analyze data for insights">Analyze data for insights</option>
+                                        <option value="Build AI systems">Build AI systems</option>
+                                        <option value="Protect systems from attacks">Protect systems from attacks</option>
+                                        <option value="Manage cloud infrastructure">Manage cloud infrastructure</option>
+                                        <option value="Design user experiences">Design user experiences</option>
+                                        <option value="Manage large databases">Manage large databases</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg px-5 fw-semibold" id="submitBtn">
+                                    Get Recommendation
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Career Paths Overview -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-2">Career Paths We Recommend</h2>
+        <p class="text-center text-muted mb-5 mx-auto" style="max-width: 600px;">
+            Our model is trained to recommend one of these 10 career paths based on your unique profile.
+        </p>
+        <div class="row g-4">
+            <div class="col-md-4 col-lg-3">
+                <div class="card career-card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="career-icon mb-2">&#x1F3A8;</div>
+                        <h6 class="fw-bold">Frontend Developer</h6>
+                        <small class="text-muted">Build beautiful, interactive UIs</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card career-card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="career-icon mb-2">&#x2699;&#xFE0F;</div>
+                        <h6 class="fw-bold">Backend Developer</h6>
+                        <small class="text-muted">Build server-side logic &amp; APIs</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card career-card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="career-icon mb-2">&#x1F310;</div>
+                        <h6 class="fw-bold">Full Stack Developer</h6>
+                        <small class="text-muted">Build complete web applications</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card career-card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="career-icon mb-2">&#x1F4F1;</div>
+                        <h6 class="fw-bold">Mobile App Developer</h6>
+                        <small class="text-muted">Build apps for smartphones</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card career-card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="career-icon mb-2">&#x1F4CA;</div>
+                        <h6 class="fw-bold">Data Analyst</h6>
+                        <small class="text-muted">Analyze data for business insights</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card career-card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="career-icon mb-2">&#x1F916;</div>
+                        <h6 class="fw-bold">ML Engineer</h6>
+                        <small class="text-muted">Build intelligent AI systems</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card career-card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="career-icon mb-2">&#x1F512;</div>
+                        <h6 class="fw-bold">Cybersecurity Analyst</h6>
+                        <small class="text-muted">Protect systems from threats</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card career-card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="career-icon mb-2">&#x2601;&#xFE0F;</div>
+                        <h6 class="fw-bold">Cloud/DevOps</h6>
+                        <small class="text-muted">Manage cloud infrastructure</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card career-card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="career-icon mb-2">&#x1F58C;&#xFE0F;</div>
+                        <h6 class="fw-bold">UI/UX Designer</h6>
+                        <small class="text-muted">Design user-centered experiences</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card career-card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="career-icon mb-2">&#x1F5C4;&#xFE0F;</div>
+                        <h6 class="fw-bold">Database Administrator</h6>
+                        <small class="text-muted">Manage &amp; optimize databases</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

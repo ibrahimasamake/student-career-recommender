@@ -1,0 +1,252 @@
+/* ============================================================
+   CareerPath AI - Custom Styles
+   ============================================================ */
+
+/* --- Global --- */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --accent: #10b981;
+    --bg-light: #f8fafc;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.3rem;
+    letter-spacing: -0.5px;
+}
+
+.brand-icon {
+    font-size: 1.4rem;
+    margin-right: 4px;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link.active {
+    color: #fff !important;
+    border-bottom: 2px solid var(--accent);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+    padding: 60px 0 50px;
+}
+
+.hero-section h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.hero-section p {
+    font-size: 1.15rem;
+    opacity: 0.9;
+}
+
+/* --- Cards --- */
+.card {
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+}
+
+/* --- Career Cards (Home Page) --- */
+.career-card {
+    cursor: default;
+}
+
+.career-card:hover {
+    border-color: var(--primary) !important;
+}
+
+.career-icon {
+    font-size: 2rem;
+}
+
+/* --- Form Styles --- */
+.form-label {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 1.5px solid #cbd5e1;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-range::-webkit-slider-thumb {
+    background: var(--primary);
+}
+
+.form-range::-moz-range-thumb {
+    background: var(--primary);
+}
+
+/* --- Score & Interest Displays --- */
+.score-display,
+.interest-display {
+    font-size: 1.1rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* --- Result Page --- */
+.result-main-card {
+    background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+}
+
+.confidence-meter .progress {
+    background-color: #e2e8f0;
+}
+
+/* --- List Groups --- */
+.list-group-item {
+    border-left: none;
+    border-right: none;
+}
+
+.list-group-item:first-child {
+    border-top: none;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* --- Footer --- */
+.footer {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+}
+
+.footer a:hover {
+    color: #fff !important;
+}
+
+/* --- About Page --- */
+.card h3 {
+    font-size: 1.4rem;
+}
+
+.card ul li,
+.card ol li {
+    line-height: 1.7;
+}
+
+/* --- Button Styles --- */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section {
+        padding: 40px 0 30px;
+    }
+
+    .card-body.p-5 {
+        padding: 1.5rem !important;
+    }
+}
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* --- Validation --- */
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    border-color: #ef4444;
+}
+
+.invalid-feedback {
+    font-size: 0.8rem;
+}
+
+/* --- Loading Spinner (for form submission) --- */
+#submitBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* --- Scrollbar Styling --- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}

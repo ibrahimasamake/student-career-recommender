@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% block title %}About - Career Path Recommender{% endblock %}
+
+{% block content %}
+<!-- Hero Banner -->
+<section class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-5 fw-bold">About CareerPath AI</h1>
+        <p class="lead mx-auto mt-3" style="max-width: 700px;">
+            Understanding how machine learning helps students discover their ideal career paths.
+        </p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <!-- Project Overview -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="fw-bold text-primary mb-3">Project Overview</h3>
+                        <p>
+                            The <strong>AI-Based Student Career Path Recommendation System</strong> is a
+                            machine learning web application designed to help students identify the most
+                            suitable career path based on their academic scores, skill interests, and
+                            personal preferences.
+                        </p>
+                        <p>
+                            Students often struggle to choose a career path that matches their strengths
+                            and interests. This system uses a <strong>Random Forest Classifier</strong>
+                            trained on a synthetic dataset of student profiles to predict the best career
+                            path out of 10 options.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Why Career Recommendation -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="fw-bold text-primary mb-3">Why Career Recommendation Matters</h3>
+                        <p>
+                            Choosing the right career early in life can significantly impact a student's
+                            academic motivation, skill development, and long-term satisfaction. A data-driven
+                            recommendation can:
+                        </p>
+                        <ul>
+                            <li>Reduce decision fatigue by narrowing options based on measurable traits</li>
+                            <li>Help students focus their learning efforts on relevant skills</li>
+                            <li>Provide an objective second opinion alongside personal judgment</li>
+                            <li>Highlight career paths the student may not have considered</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- How ML is Used -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="fw-bold text-primary mb-3">How Machine Learning is Used</h3>
+                        <p>
+                            The system uses a <strong>supervised classification</strong> approach. The
+                            process involves:
+                        </p>
+                        <ol>
+                            <li class="mb-2">
+                                <strong>Data Collection:</strong> A synthetic dataset of 200 student profiles
+                                is generated with realistic scores, interests, and career labels.
+                            </li>
+                            <li class="mb-2">
+                                <strong>Feature Encoding:</strong> Categorical features (preferred subject,
+                                career goal) are converted to numeric labels using LabelEncoder.
+                            </li>
+                            <li class="mb-2">
+                                <strong>Model Training:</strong> A RandomForestClassifier with 200 decision
+                                trees is trained on the encoded features.
+                            </li>
+                            <li class="mb-2">
+                                <strong>Evaluation:</strong> The model is evaluated using an 80/20 train-test
+                                split with accuracy score and classification report.
+                            </li>
+                            <li class="mb-2">
+                                <strong>Prediction:</strong> The trained model predicts the best career path
+                                for new student inputs, along with a confidence score.
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- About Random Forest -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="fw-bold text-primary mb-3">What is Random Forest?</h3>
+                        <p>
+                            Random Forest is an <strong>ensemble learning method</strong> that builds multiple
+                            decision trees during training and outputs the class that is the mode (majority
+                            vote) of the individual trees.
+                        </p>
+                        <p>Key characteristics:</p>
+                        <ul>
+                            <li>Reduces overfitting compared to a single decision tree</li>
+                            <li>Handles both numerical and categorical features well</li>
+                            <li>Provides feature importance rankings</li>
+                            <li>Robust to noise and outliers in the data</li>
+                            <li>Works well with relatively small datasets</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dataset Features -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="fw-bold text-primary mb-3">Dataset Features</h3>
+                        <p>The model uses the following input features:</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="fw-semibold">Numeric Scores (0-100)</h6>
+                                <ul>
+                                    <li>Math Score</li>
+                                    <li>Programming Score</li>
+                                    <li>Communication Score</li>
+                                    <li>Problem Solving Score</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="fw-semibold">Interest Levels (1-10)</h6>
+                                <ul>
+                                    <li>Web Development Interest</li>
+                                    <li>Mobile App Interest</li>
+                                    <li>AI/ML Interest</li>
+                                    <li>Database Interest</li>
+                                    <li>Networking/Cybersecurity Interest</li>
+                                    <li>Cloud/DevOps Interest</li>
+                                    <li>Design/UI Interest</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <h6 class="fw-semibold">Categorical Features (encoded)</h6>
+                            <ul>
+                                <li>Preferred Subject</li>
+                                <li>Career Goal</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Limitations -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="fw-bold text-primary mb-3">Limitations</h3>
+                        <ul>
+                            <li>The model is trained on a synthetic dataset, not real-world student data</li>
+                            <li>Only 13 input features are considered; real career decisions involve more factors</li>
+                            <li>The system provides a recommendation, not a definitive answer</li>
+                            <li>Subject and career goal encoding is based on predefined categories</li>
+                            <li>The model may not generalize well to students from very different backgrounds</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Future Scope -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="fw-bold text-primary mb-3">Future Improvements</h3>
+                        <ul>
+                            <li>Train on real-world student career data for better accuracy</li>
+                            <li>Add user authentication and student profile history</li>
+                            <li>Implement additional ML models (SVM, Gradient Boosting, Neural Networks)</li>
+                            <li>Add a database backend (SQLite/PostgreSQL) for persistent storage</li>
+                            <li>Include more granular career sub-paths and specializations</li>
+                            <li>Add interactive visualizations of skill and interest profiles</li>
+                            <li>Implement a recommendation confidence calibration system</li>
+                            <li>Add multilingual support for broader accessibility</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tech Stack -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="fw-bold text-primary mb-3">Technology Stack</h3>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="card h-100 border-start border-4 border-success">
+                                    <div class="card-body">
+                                        <h6 class="fw-bold">Backend</h6>
+                                        <small class="text-muted">Python, Flask, Joblib</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100 border-start border-4 border-info">
+                                    <div class="card-body">
+                                        <h6 class="fw-bold">Machine Learning</h6>
+                                        <small class="text-muted">Scikit-learn, Pandas, NumPy</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100 border-start border-4 border-primary">
+                                    <div class="card-body">
+                                        <h6 class="fw-bold">Frontend</h6>
+                                        <small class="text-muted">HTML5, CSS3, Bootstrap 5, JavaScript</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center mt-5 mb-5">
+                    <h4 class="fw-bold mb-3">Ready to discover your career path?</h4>
+                    <a href="/" class="btn btn-primary btn-lg px-5 fw-semibold">
+                        Get Your Recommendation
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
